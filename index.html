@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="../css/agecalculator.css"> -->
+
+    <style>
+        .container{
+    width:90vw;
+    height:90vh;
+    background-color: rgba(224, 25, 25, 0.568);
+    color: rgba(236, 229, 228, 0.616);
+    padding: 10px;
+    border-radius: 50%;
+
+}
+.calculator{
+    width: 600px;
+    margin-top: 10%;
+    margin-left: 29%;
+
+}
+.calculator h1{
+    font-size: 60px;
+}
+.input-box{
+    display: flex;
+    align-items: center;
+    margin: 40px 0px;
+    padding: 35px;
+    border-radius: 10px;
+    background-color: rgb(15, 223, 238);
+}
+.input-box input{
+    flex: 1;
+    margin-right: 20px;
+padding: 10px 20px;
+    border:0;
+    outline:0;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+.input-box button{
+    background:#ffff76;
+    padding: 15px 30px;
+    font-weight: 500;
+    cursor: pointer;
+    color:#333;
+    border-radius: 5px;
+    outline:0;
+    border:0;
+}
+#result{
+    font-size: 20px;
+}
+#result span{
+    color: #27ff14;
+    box-shadow: #e61608;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>check you born to present days</h1>
+         <div class="input-box">
+            <input type="date" id="date"> 
+            <button onclick="calculateage()">click me</button>
+         </div>
+         <p id="result"></p>
+        </div>
+    </div>
+</body>
+<script>
+    let userInput=document.getElementById("date")
+    let result=document.getElementById("result")
+    userInput.max = new Date().toISOString().split("T")[0];
+    function calculateage(){
+        let birthdate = new Date(userInput.value);
+        let d1= birthdate.getDate();
+        let m1=birthdate.getMonth()+1;
+        let y1=birthdate.getFullYear();
+
+        let today=new Date();
+        let d2=today.getDate();
+        let m2=today.getMonth()+1;
+        let y2=today.getFullYear();
+
+        let d3,m3,y3
+
+        y3=y2-y1;
+        if(m2>=m1){
+            m3=m2-m1
+        }
+        else{
+            y3--;
+            m3=12+m2-m1;
+        }
+        if(d2>=d1){
+            d3=d2-d1;
+        }
+        else{
+              m3--
+              d3=getdaysintomonths(y1,m1)+d2-d1;
+        }
+        if(m3<0){
+            m3=11;
+            y3--
+        }
+        result.innerHTML=`you are <span>${y3}</span> years,<span>${m3}</span>months and <span>${d3}</span> days old`;
+
+    }
+    function getdaysintomonths(year,month){
+       return new Date(year,month,0).getDate()
+    }
+</script>
+</html>
